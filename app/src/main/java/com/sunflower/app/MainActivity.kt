@@ -1,16 +1,11 @@
 package com.sunflower.app
 
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
-import android.content.pm.PackageManager
 import android.content.pm.PackageManager.PERMISSION_GRANTED
-import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -19,6 +14,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_INDEFINITE
+import com.sunflower.location.Location
 import com.sunflower.location.LocationListener
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
@@ -65,8 +61,9 @@ class MainActivity : AppCompatActivity() {
         fusedLocationClient.lastLocation
             .addOnCompleteListener { taskLocation ->
                 if (taskLocation.isSuccessful && taskLocation.result != null) {
-                    val location = taskLocation.result
-                    locationListener.onLocationChanged(Location(location.latitude, location.longitude))
+                    val lat: Double? = taskLocation.result?.latitude
+                    val lon: Double? = taskLocation.result?.longitude
+                    if (lat != null && lon != null) locationListener.onLocationChanged(lat, lon)
                 }
             }
     }
@@ -75,13 +72,15 @@ class MainActivity : AppCompatActivity() {
         ActivityCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION) == PERMISSION_GRANTED
 
     private fun startLocationPermissionRequest() {
-        ActivityCompat.requestPermissions(this, arrayOf(ACCESS_COARSE_LOCATION),
-            REQUEST_PERMISSIONS_REQUEST_CODE)
+        ActivityCompat.requestPermissions(
+            this, arrayOf(ACCESS_COARSE_LOCATION),
+            REQUEST_PERMISSIONS_REQUEST_CODE
+        )
     }
 
     private fun requestPermissions() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, ACCESS_COARSE_LOCATION)) {
-            showSnackbar("Location permission is needed for core functionality", android.R.string.ok, View.OnClickListener {
+            showSnackbar(View.OnClickListener {
                 startLocationPermissionRequest()
             })
         } else {
@@ -94,23 +93,19 @@ class MainActivity : AppCompatActivity() {
         permissions: Array<String>,
         grantResults: IntArray
     ) {
-        if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE) {
-            when {
-                (grantResults[0] == PERMISSION_GRANTED) -> getLastLocation()
-            }
+        if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE && grantResults[0] == PERMISSION_GRANTED) {
+            getLastLocation()
         }
     }
 
     private fun showSnackbar(
-        snackStr: String,
-        actionStrId: Int = 0,
         listener: View.OnClickListener? = null
     ) {
-        val snackbar = Snackbar.make(findViewById(android.R.id.content), snackStr,
-            LENGTH_INDEFINITE)
-        if (actionStrId != 0 && listener != null) {
-            snackbar.setAction(getString(actionStrId), listener)
-        }
+        val snackbar = Snackbar.make(
+            findViewById(android.R.id.content), getString(R.string.location_rationale),
+            LENGTH_INDEFINITE
+        )
+        snackbar.setAction(getString(android.R.string.ok), listener)
         snackbar.show()
     }
 

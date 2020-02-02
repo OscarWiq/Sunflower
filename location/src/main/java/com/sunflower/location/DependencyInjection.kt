@@ -1,10 +1,12 @@
 package com.sunflower.location
 
+import android.location.Geocoder
+import org.koin.android.ext.koin.androidContext
+import org.koin.dsl.bind
 import org.koin.dsl.module
-
-val locationProvider = CachedLocationProvider()
+import java.util.*
 
 val locationModule = module {
-    single<LocationListener> { locationProvider }
-    single<LocationProvider> { locationProvider }
+    single<LocationListener> { CachedLocationProvider(get()) } bind LocationProvider::class
+    single { Geocoder(androidContext(), Locale.getDefault()) }
 }

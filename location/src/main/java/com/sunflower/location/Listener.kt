@@ -1,5 +1,5 @@
 package com.sunflower.location
 
 interface LocationListener {
-    fun onLocationChanged(location: Location)
+    fun onLocationChanged(lat: Double, lon: Double)
 }
