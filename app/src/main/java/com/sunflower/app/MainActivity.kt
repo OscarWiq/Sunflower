@@ -14,7 +14,6 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_INDEFINITE
-import com.sunflower.location.Location
 import com.sunflower.location.LocationListener
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
