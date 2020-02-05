@@ -32,7 +32,7 @@ class CurrentWeatherFragment : Fragment() {
         super.onResume()
         viewModel.currentWeather.observe(viewLifecycleOwner, Observer {
             locationText.text = it.locationName
-            weatherText.text = it.weatherDescription.capitalize()
+            weatherText.text = it.weatherDescription
             weather_image.setImageDrawable(context?.getDrawable(it.iconId.toWeatherDrawableInt()))
         })
         viewModel.getCurrentWeatherByLocation()
