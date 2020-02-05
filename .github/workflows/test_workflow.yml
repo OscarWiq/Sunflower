@@ -3,7 +3,7 @@ name: Test Workflow
 on: [push]
 
 jobs:
-  Upload testable APK:
+  upload_testable_apk:
     name: Build Debug APK
     runs-on: ubuntu-latest
     steps:
