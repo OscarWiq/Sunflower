@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/settings_fragment"
-        android:name="com.example.settings.SettingsFragment"
+        android:name="com.sunflower.settings.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@layout/settings_fragment"/>
 
