@@ -1,13 +1,17 @@
 package com.sunflower.weather_forecasts.view
 
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.sunflower.common.toWeatherDrawableInt
 import com.sunflower.weather_forecasts.R
+import com.sunflower.weather_forecasts.databinding.WeatherFragmentListBinding.inflate
 
 class WeatherAdapter(private val onItemClicked: (forecast: WeatherForecast) -> Unit) :
     RecyclerView.Adapter<WeatherReportViewHolder>() {
@@ -21,11 +25,17 @@ class WeatherAdapter(private val onItemClicked: (forecast: WeatherForecast) -> U
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherReportViewHolder {
+        //val layoutInflater = LayoutInflater.from(parent.context)
+        //val binding = DataBindingUtil.inflate<View>(layoutInflater, R.layout.weather_list_item, parent, false)
+        return WeatherReportViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.weather_list_item, parent, false))
+        /*
         return WeatherReportViewHolder(
             LayoutInflater.from(
                 parent.context
             ).inflate(R.layout.weather_list_item, parent, false)
         )
+
+         */
     }
 
     override fun getItemCount(): Int = forecasts.size

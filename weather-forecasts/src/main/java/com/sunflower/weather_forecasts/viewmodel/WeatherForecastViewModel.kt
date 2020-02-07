@@ -1,5 +1,6 @@
 package com.sunflower.weather_forecasts.viewmodel
 
+import androidx.databinding.Bindable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,6 +14,7 @@ class WeatherForecastViewModel(
     private val repository: WeatherForecastRepository,
     private val locationProvider: LocationProvider
 ) : ViewModel() {
+
     var forecasts: MutableLiveData<List<WeatherForecast>> = MutableLiveData()
 
     fun getWeatherForecastByLocation() {
