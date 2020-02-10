@@ -20,7 +20,10 @@ class WeatherAdapter(private val onItemClicked: (forecast: WeatherForecast) -> U
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherReportViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = DataBindingUtil.inflate<WeatherListItemBinding>(layoutInflater, R.layout.weather_list_item, parent, false)
+        val binding = DataBindingUtil.inflate<WeatherListItemBinding>(layoutInflater,
+            R.layout.weather_list_item,
+            parent,
+            false)
         return WeatherReportViewHolder(binding)
     }
 
@@ -31,7 +34,8 @@ class WeatherAdapter(private val onItemClicked: (forecast: WeatherForecast) -> U
     }
 }
 
-class WeatherReportViewHolder(private val binding: WeatherListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+class WeatherReportViewHolder(private val binding: WeatherListItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
     fun onBind(forecast: WeatherForecast, onItemClicked: (forecast: WeatherForecast) -> Unit) {
 
