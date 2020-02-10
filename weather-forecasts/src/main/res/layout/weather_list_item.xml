@@ -4,7 +4,7 @@
     <data>
 
         <variable
-            name="viewmodel"
+            name="forecast"
             type="com.sunflower.weather_forecasts.view.WeatherForecast" />
 
     </data>
@@ -19,6 +19,7 @@
         <ImageView
             android:id="@+id/weather_image"
             android:contentDescription="@string/content_description_weather_image_item"
+            android:src="@{forecast.icon}"
             android:layout_width="100dp"
             android:layout_height="100dp" />
 
@@ -29,7 +30,7 @@
 
             <TextView
                 android:id="@+id/weather_location"
-                android:text="@{viewmodel.location"
+                android:text="@{forecast.location}"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -37,7 +38,7 @@
 
             <TextView
                 android:id="@+id/weather_temp"
-                android:text="@{viewmodel.temp}"
+                android:text="@{forecast.temp}"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,7 +46,7 @@
 
             <TextView
                 android:id="@+id/weather_condition"
-                android:text="@{viewmodel.weather}"
+                android:text="@{forecast.weather}"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,7 +54,7 @@
 
             <TextView
                 android:id="@+id/weather_time"
-                android:text="@{viewmodel.time}"
+                android:text="@{forecast.time}"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
